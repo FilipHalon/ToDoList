@@ -1,0 +1,25 @@
+{
+  "name": "todolist",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"It's working\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FilipHalon/ToDoList.git"
+  },
+  "keywords": [
+    "'to-do",
+    "list'",
+    "'to-do'",
+    "'list'"
+  ],
+  "author": "'Swiatomysl Halon'",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/FilipHalon/ToDoList/issues"
+  },
+  "homepage": "https://github.com/FilipHalon/ToDoList#readme"
+}
