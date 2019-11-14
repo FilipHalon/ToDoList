@@ -10,21 +10,37 @@ class List {
 
     add(task) {
         this.numberOfTasks += 1;
-        this.task.push({id: this.numberOfTasks, content: task});
+        this.tasks.push({id: this.numberOfTasks, content: task, status: "to-do"});
+        console.log(this.tasks[this.tasks.length-1]);
     };
 
-    remove(task) {
-        this.numberOfTasks -= 1;
+    delete(taskId) {
+        this.tasks.forEach((obj, i) => {
+            if(obj.id == taskId) {
+                this.tasks.splice(i, 1);
+                console.log(this.tasks);
+            };
+        });
     };
 
     edit(task) {
 
     };
 
-    markAsCompleted(task) {
-
+    markAsUnCompleted(taskId) {
+        this.tasks.forEach(obj => {
+            if(obj.id == taskId) {
+                if(obj.status === "to-do") {
+                    obj.status = "done";
+                    console.log(obj.status);
+                }
+                else if (obj.status === "done") {
+                    obj.status = "to-do";
+                    console.log(obj.status);
+                };
+            };
+        });
     };
-
 };
 
 export {List};
