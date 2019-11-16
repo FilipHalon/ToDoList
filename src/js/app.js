@@ -2,7 +2,21 @@ import {List} from './models'
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    const ToDoList = new List;
+    let ToDoList = localStorage.getItem("ToDoList");
+    if (ToDoList) {
+        ToDoList = JSON.parse(ToDoList);
+        const numberOfTasks = ToDoList.numberOfTasks;
+        const tasks = ToDoList.tasks;
+        ToDoList = new List;
+        ToDoList.numberOfTasks = numberOfTasks;
+        ToDoList.tasks = tasks;
+        console.log(ToDoList);
+    }
+    else {
+        ToDoList = new List;
+        console.log("Created a new one.");
+    }
+
     const tbody = document.querySelector("tbody");
     const newTask = document.querySelector("input[name='new-task']");
     const addNewTaskBtn = document.querySelector(".add-new-task");
@@ -16,11 +30,14 @@ document.addEventListener("DOMContentLoaded", function() {
             tr.appendChild(document.createElement("td")).innerHTML = "<input type='checkbox' class='task-status to-do'>"
             ) :
         (
-            tr.appendChild(document.createElement("td")).innerHTML = "<input type='checkbox' class='task-status done'>"
+            tr.appendChild(document.createElement("td")).innerHTML = "<input type='checkbox' class='task-status done' checked>"
             );
         tr.appendChild(document.createElement("td")).innerText = obj.content;
         tr.appendChild(document.createElement("td")).innerHTML = "<button class='edit'>Edytuj";
         tr.appendChild(document.createElement("td")).innerHTML = "<button class='delete'>Usuń";
+        if (obj.status === "done") {
+            tr.children[1].style.textDecoration = "line-through";
+        };
     };
 
     const toggleEditSaveButton = function(button) {
@@ -37,17 +54,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    const tasks = [
-        'Wyświetlić zadania', 
-        'Dodać możliwość dodania zadania', 
-        'Dodać możliwość usunięcia zadania', 
-        'Dodać możliwość edytowania zadania', 
-        'Dodać możliwość oznaczenia zadania jako zakończone'
-    ];
+    // const tasks = [
+    //     'Wyświetlić zadania', 
+    //     'Dodać możliwość dodania zadania', 
+    //     'Dodać możliwość usunięcia zadania', 
+    //     'Dodać możliwość edytowania zadania', 
+    //     'Dodać możliwość oznaczenia zadania jako zakończone'
+    // ];
 
-    tasks.forEach(task => {
-        ToDoList.add(task);
-    });
+    // tasks.forEach(task => {
+    //     ToDoList.add(task);
+    // });
 
     ToDoList.tasks.forEach(obj => {
         displayTasks(obj);
@@ -64,17 +81,20 @@ document.addEventListener("DOMContentLoaded", function() {
             targetClass.contains("to-do") ?
             (
                 targetParent.nextElementSibling.style.textDecoration = "none",
-                ToDoList.markAsUnCompleted(targetParent.parentElement.id)
+                ToDoList.markAsUnCompleted(targetParent.parentElement.id),
+                localStorage.setItem('ToDoList', JSON.stringify(ToDoList))
                 ) :
             (
                 targetParent.nextElementSibling.style.textDecoration = "line-through",
-                ToDoList.markAsUnCompleted(targetParent.parentElement.id)
+                ToDoList.markAsUnCompleted(targetParent.parentElement.id),
+                localStorage.setItem('ToDoList', JSON.stringify(ToDoList))
                 );    
         }
         else if (targetClass.contains("delete")) {
             let taskToDelete = target.parentElement.parentElement;
             console.log(taskToDelete);
             ToDoList.delete(taskToDelete.id);
+            localStorage.setItem('ToDoList', JSON.stringify(ToDoList));
             tbody.removeChild(taskToDelete);
         }
         else if (targetClass.contains("edit") || targetClass.contains("save") || targetClass.contains("cancel")) {
@@ -92,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const newContent = taskToEdit.firstElementChild.value;
                 toggleEditSaveButton(target);
                 ToDoList.edit(targetParent.parentElement.id, newContent);
+                localStorage.setItem('ToDoList', JSON.stringify(ToDoList));
                 taskToEdit.innerText = newContent;
                 targetParent.removeChild(target.nextElementSibling);
             }
@@ -110,6 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         if (newTask.value) {
             ToDoList.add(newTask.value);
+            localStorage.setItem('ToDoList', JSON.stringify(ToDoList));
             const newestTask = ToDoList.tasks[ToDoList.tasks.length-1];
             displayTasks(newestTask);
         };
