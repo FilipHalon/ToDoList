@@ -3,10 +3,6 @@ class List {
         this.tasks = [];
         this.numberOfTasks = 0;
     };
-    
-    display() {
-
-    };
 
     add(task) {
         this.numberOfTasks += 1;
@@ -23,8 +19,13 @@ class List {
         });
     };
 
-    edit(task) {
-
+    edit(taskId, taskContent) {
+        this.tasks.forEach(obj => {
+            if(obj.id == taskId) {
+                obj.content = taskContent;
+                console.log(obj);
+            }
+        })
     };
 
     markAsUnCompleted(taskId) {
