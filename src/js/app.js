@@ -72,10 +72,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     tbody.addEventListener("click", event => {
-        let target = event.target;
-        let targetClass = target.classList
+        const target = event.target;
+        const targetClass = target.classList
         if (targetClass.contains("task-status")) {
-            let targetParent = target.parentElement;
+            const targetParent = target.parentElement;
             targetClass.toggle("to-do");
             targetClass.toggle("done")
             targetClass.contains("to-do") ?
@@ -91,15 +91,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 );    
         }
         else if (targetClass.contains("delete")) {
-            let taskToDelete = target.parentElement.parentElement;
+            const taskToDelete = target.parentElement.parentElement;
             console.log(taskToDelete);
             ToDoList.delete(taskToDelete.id);
             localStorage.setItem('ToDoList', JSON.stringify(ToDoList));
             tbody.removeChild(taskToDelete);
         }
         else if (targetClass.contains("edit") || targetClass.contains("save") || targetClass.contains("cancel")) {
-            let targetParent = target.parentElement;
-            let taskToEdit = targetParent.previousElementSibling;
+            const targetParent = target.parentElement;
+            const taskToEdit = targetParent.previousElementSibling;
             if (targetClass.contains("edit")) {
                 toggleEditSaveButton(target);
                 targetParent.appendChild(document.createElement("button")).classList.add("cancel")

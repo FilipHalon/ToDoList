@@ -2,25 +2,35 @@
 <html lang="pl-PL">
     <meta charset="utf-8">
     <title>Lista zadań</title>
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
     <script src="./js/index.js"></script>
 </html>
 <body>
-    <table>
-        <thead>
-            <tr>
-                <td></td>
-                <td>Treść zadania</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <form action="#" method="GET">
-        <label>Dodaj zadanie
-            <input type="text" name="new-task">
-        </label>
-        <button type="submit" class="add-new-task">Dodaj</button>
-    </form>
+    <section class="task-overwiev container table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>Treść zadania</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+    <section class="new-task-form container">
+        <form action="#" method="GET">
+            <div class="form-group">
+                <label for="new-task">Dodaj zadanie</label>
+                <div class="row">
+                    <input id="new-task" type="text" name="new-task" class="form-control col-sm-10" placeholder="Dodaj zadanie">
+                    <button type="submit" class="add-new-task col-sm-1">Dodaj</button>
+                </div>
+            </div>
+        </form>
+    </section>
 </body>
